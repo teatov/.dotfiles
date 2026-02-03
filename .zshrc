@@ -6,6 +6,8 @@ bindkey "^[[1;3D" backward-word
 
 autoload -Uz add-zsh-hook
 
+IS_MINGW=$(uname | sed -n "s/.*\( *MINGW *\).*/\1/ip")
+
 # Utilities
 printexec() {
 	{
@@ -73,7 +75,7 @@ typeset -TUx PATH path
 path+="$HOME/.local/bin"
 path+="$HOME/bin"
 
-if [ $(uname | sed -n "s/.*\( *MINGW *\).*/\1/ip") ]; then
+if [ IS_MINGW ]; then
 	path+="$HOME/AppData/Local/Programs/Python/Python313/Scripts"
 	path+="$HOME/AppData/Local/Programs/Python/Python313"
 	path+="$HOME/AppData/Local/Programs/Python/Launcher"
