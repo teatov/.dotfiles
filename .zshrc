@@ -4,8 +4,7 @@ setopt autocd
 bindkey "^[[1;3C" forward-word
 bindkey "^[[1;3D" backward-word
 
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+autoload -Uz add-zsh-hook
 
 # Utilities
 printexec() {
@@ -16,10 +15,8 @@ printexec() {
 	"$@"
 }
 
-alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
+alias dotfiles='git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 alias sa="printexec source ~/.zshrc"
-
-autoload -Uz add-zsh-hook
 
 # Completion
 zstyle ":completion:*" matcher-list "m:{[:lower:]}={[:upper:]}"
@@ -45,15 +42,21 @@ bindkey "^[[A" up-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
 
 # Prompt
+setopt prompt_subst
 autoload -Uz vcs_info
 add-zsh-hook precmd vcs_info
-setopt prompt_subst
 
 zstyle ":vcs_info:*" enable git
 zstyle ":vcs_info:*:*" check-for-changes true
-zstyle ":vcs_info:git:*" formats "%b%u%c "
+zstyle ":vcs_info:*:*" stagedstr "+"
+zstyle ":vcs_info:*:*" unstagedstr "!"
+zstyle ":vcs_info:*:*" formats "%b%u%c "
+zstyle ":vcs_info:*:*" actionformats "%b|%a%u%c "
 
-PROMPT="%F{44}%2~%f %F{8}${vcs_info_msg_0_}%f$ "
+PROMPT=''
+PROMPT+='%F{6}%2~%f '
+PROMPT+='%F{8}${vcs_info_msg_0_}%f'
+PROMPT+='%(?.$.%F{9}$%f) '
 
 # Tooling
 export GOPATH="$HOME/go"
@@ -70,7 +73,7 @@ typeset -TUx PATH path
 path+="$HOME/.local/bin"
 path+="$HOME/bin"
 
-if [ $(uname | sed -n 's/.*\( *MINGW *\).*/\1/ip') ]; then
+if [ $(uname | sed -n "s/.*\( *MINGW *\).*/\1/ip") ]; then
 	path+="$HOME/AppData/Local/Programs/Python/Python313/Scripts"
 	path+="$HOME/AppData/Local/Programs/Python/Python313"
 	path+="$HOME/AppData/Local/Programs/Python/Launcher"
