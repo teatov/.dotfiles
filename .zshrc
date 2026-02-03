@@ -1,10 +1,14 @@
+# Plugins
+source $HOME/.zsh/async.zsh
+async_init
+
 # General
 setopt autocd
 
+autoload -Uz add-zsh-hook
+
 bindkey "^[[1;3C" forward-word
 bindkey "^[[1;3D" backward-word
-
-autoload -Uz add-zsh-hook
 
 IS_MINGW=$(uname | sed -n "s/.*\( *MINGW *\).*/\1/ip")
 
@@ -21,11 +25,11 @@ alias dotfiles='git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 alias sa="printexec source ~/.zshrc"
 
 # Completion
-zstyle ":completion:*" matcher-list "m:{[:lower:]}={[:upper:]}"
-zstyle ":compinstall" filename "$HOME/.zshrc"
-
 autoload -Uz compinit
 compinit
+
+zstyle ":completion:*" matcher-list "m:{[:lower:]}={[:upper:]}"
+zstyle ":compinstall" filename "$HOME/.zshrc"
 
 # History
 HISTFILE=~/.histfile
@@ -46,7 +50,6 @@ bindkey "^[[B" down-line-or-beginning-search
 # Prompt
 setopt prompt_subst
 autoload -Uz vcs_info
-add-zsh-hook precmd vcs_info
 
 zstyle ":vcs_info:*" enable git
 zstyle ":vcs_info:*:*" check-for-changes true
@@ -54,6 +57,28 @@ zstyle ":vcs_info:*:*" stagedstr "+"
 zstyle ":vcs_info:*:*" unstagedstr "!"
 zstyle ":vcs_info:*:*" formats "%b%u%c "
 zstyle ":vcs_info:*:*" actionformats "%b|%a%u%c "
+
+_vbe_vcs_info() {
+	cd -q $1
+	vcs_info
+	print ${vcs_info_msg_0_}
+}
+
+async_start_worker vcs_info
+async_register_callback vcs_info _vbe_vcs_info_done
+
+_vbe_vcs_info_done() {
+    local stdout=$3
+    vcs_info_msg_0_=$stdout
+    zle reset-prompt
+}
+
+_vbe_vcs_precmd() {
+    async_flush_jobs vcs_info
+    async_job vcs_info _vbe_vcs_info $PWD
+}
+
+add-zsh-hook precmd _vbe_vcs_precmd
 
 PROMPT=''
 PROMPT+='%F{6}%2~%f '
