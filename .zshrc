@@ -53,7 +53,7 @@ zstyle ":vcs_info:*" enable git
 zstyle ":vcs_info:*:*" check-for-changes true
 zstyle ":vcs_info:git:*" formats "%b%u%c "
 
-PROMPT="%F{blue}%2~%f %F{8}${vcs_info_msg_0_}%f$ "
+PROMPT="%F{44}%2~%f %F{8}${vcs_info_msg_0_}%f$ "
 
 # Tooling
 export GOPATH="$HOME/go"
