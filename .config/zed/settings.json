@@ -102,6 +102,14 @@
     "Rust": {
       "tab_size": 4,
     },
+    "Shell Script": {
+      "formatter": {
+        "external": {
+          "command": "shfmt",
+          "arguments": ["--filename", "{buffer_path}"],
+        },
+      },
+    },
   },
   "linked_edits": true,
   "lsp": {

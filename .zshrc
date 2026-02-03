@@ -1,25 +1,62 @@
+# General
+setopt autocd
+bindkey -e
 
-# The following lines were added by compinstall
+# Utilities
+printexec() {
+	{
+		printf "%q " "$@"
+		echo
+	} >&2
+	"$@"
+}
 
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
-zstyle :compinstall filename '/home/teatov/.zshrc'
+alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
+alias sa="printexec source ~/.zshrc"
+
+autoload -Uz add-zsh-hook
+
+# Completion
+zstyle ":completion:*" matcher-list "m:{[:lower:]}={[:upper:]}"
+zstyle ":compinstall" filename "$HOME/.zshrc"
 
 autoload -Uz compinit
 compinit
-# End of lines added by compinstall
-# Lines configured by zsh-newuser-install
+
+# History
 HISTFILE=~/.histfile
 HISTSIZE=100000
 SAVEHIST=100000
-setopt autocd
-bindkey -e
-# End of lines configured by zsh-newuser-install
 
 setopt inc_append_history
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
-bindkey '^[[A' up-line-or-search
-bindkey '^[[B' down-line-or-search
+bindkey "^[[A" up-line-or-search
+bindkey "^[[B" down-line-or-search
 
-alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
+# Prompt
+autoload -Uz vcs_info
+add-zsh-hook precmd vcs_info
+setopt prompt_subst
+
+zstyle ":vcs_info:*" enable git
+zstyle ":vcs_info:*:*" check-for-changes true
+zstyle ":vcs_info:git:*" formats "%b%u%c "
+
+PROMPT="%F{blue}%2~%f %F{8}${vcs_info_msg_0_}%f$ "
+
+# Tooling
+export GOPATH="$HOME/go"
+
+. "$HOME/.cargo/env"
+
+export NVM_DIR="$HOME/.nvm"
+. "$NVM_DIR/nvm.sh"
+. "$NVM_DIR/bash_completion"
+
+# Path
+typeset -TUx PATH path
+
+path+="$HOME/.local/bin"
+path+="$HOME/bin"
