@@ -4,6 +4,9 @@ setopt autocd
 bindkey "^[[1;3C" forward-word
 bindkey "^[[1;3D" backward-word
 
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
 # Utilities
 printexec() {
 	{
