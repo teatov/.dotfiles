@@ -99,14 +99,17 @@
       "tab_size": 4,
       "wrap_guides": [120],
     },
+    "Python": {
+      "tab_size": 4,
+    },
     "Rust": {
       "tab_size": 4,
     },
     "Shell Script": {
       "formatter": {
         "external": {
-          "command": "shfmt",
           "arguments": ["--filename", "{buffer_path}"],
+          "command": "shfmt",
         },
       },
     },
@@ -120,6 +123,13 @@
         "php_code_sniffer.enabled": true,
       },
     },
+  },
+  "minimap": {
+    "current_line_highlight": "line",
+    "display_in": "all_editors",
+    "max_width_columns": 40,
+    "show": "auto",
+    "thumb": "always",
   },
   "notification_panel": {
     "button": false,
@@ -255,16 +265,13 @@
     "lsp": {
       "clangd": {
         "binary": {
-          "arguments": [
-            "--query-driver=C:\\ProgramData\\mingw64\\mingw64\\bin\\gcc.exe",
-          ],
+          "arguments": ["--query-driver=gcc"],
         },
       },
     },
     "terminal": {
       "shell": {
         "with_arguments": {
-          "program": "cmd.exe",
           "args": [
             "/c",
             "C:\\msys64\\msys2_shell.cmd",
@@ -275,6 +282,7 @@
             "-shell",
             "zsh",
           ],
+          "program": "cmd.exe",
         },
       },
     },
