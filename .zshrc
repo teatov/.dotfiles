@@ -52,38 +52,30 @@ setopt prompt_subst
 autoload -Uz vcs_info
 
 zstyle ":vcs_info:*" enable git
-zstyle ":vcs_info:*:*" check-for-changes true
-zstyle ":vcs_info:*:*" stagedstr "+"
-zstyle ":vcs_info:*:*" unstagedstr "!"
-zstyle ":vcs_info:*:*" formats "%b%u%c "
-zstyle ":vcs_info:*:*" actionformats "%b|%a%u%c "
-
-_vbe_vcs_info() {
-	cd -q $1
-	vcs_info
-	print ${vcs_info_msg_0_}
-}
-
-async_start_worker vcs_info
-async_register_callback vcs_info _vbe_vcs_info_done
-
-_vbe_vcs_info_done() {
-    local stdout=$3
-    vcs_info_msg_0_=$stdout
-    zle reset-prompt
-}
-
-_vbe_vcs_precmd() {
-    async_flush_jobs vcs_info
-    async_job vcs_info _vbe_vcs_info $PWD
-}
-
-add-zsh-hook precmd _vbe_vcs_precmd
+zstyle ":vcs_info:*" check-for-changes true
+zstyle ":vcs_info:*" stagedstr "+"
+zstyle ":vcs_info:*" unstagedstr "!"
+zstyle ":vcs_info:*" formats "%b%u%c "
+zstyle ":vcs_info:*" actionformats "%b|%a%u%c "
 
 PROMPT=''
 PROMPT+='%F{6}%2~%f '
 PROMPT+='%F{8}${vcs_info_msg_0_}%f'
 PROMPT+='%(?.$.%F{9}$%f) '
+
+function vcs_callback() {
+	vcs_info
+	zle reset-prompt
+}
+
+async_start_worker vcs_updater_worker
+async_register_callback vcs_updater_worker vcs_callback
+
+function vcs_job_precmd() {
+	async_job vcs_updater_worker
+}
+
+add-zsh-hook precmd vcs_job_precmd
 
 # Environment
 typeset -TUx PATH path

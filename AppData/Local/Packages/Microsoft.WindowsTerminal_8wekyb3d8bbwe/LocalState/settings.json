@@ -33,6 +33,7 @@
         "defaults": 
         {
             "colorScheme": "Campbell",
+            "cursorShape": "filledBox",
             "font": 
             {
                 "face": "Maple Mono",
