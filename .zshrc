@@ -78,6 +78,7 @@ async_start_worker vcs_updater_worker
 async_register_callback vcs_updater_worker vcs_callback
 
 function vcs_job_precmd() {
+	async_flush_jobs vcs_updater_worker
 	async_job vcs_updater_worker
 }
 
