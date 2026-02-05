@@ -6,6 +6,7 @@ mingw-w64-ucrt-x86_64-fastfetch
 mingw-w64-ucrt-x86_64-ffmpeg
 mingw-w64-ucrt-x86_64-gcc
 mingw-w64-ucrt-x86_64-jq
+mingw-w64-ucrt-x86_64-lld
 mingw-w64-ucrt-x86_64-nodejs
 mingw-w64-ucrt-x86_64-python
 mingw-w64-ucrt-x86_64-python-pip

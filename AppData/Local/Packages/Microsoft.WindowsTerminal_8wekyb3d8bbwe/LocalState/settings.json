@@ -91,6 +91,18 @@
                 "icon": "C:/msys64/mingw64.ico",
                 "name": "MINGW64 / MSYS2",
                 "startingDirectory": "%USERPROFILE%"
+            },
+            {
+                "guid": "{938bb1fb-a205-5c61-aa68-c0cc694f3a03}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 18",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{3095b000-d066-5465-9fb5-31f2b74360ee}",
+                "hidden": false,
+                "name": "Developer PowerShell for VS 18",
+                "source": "Windows.Terminal.VisualStudio"
             }
         ]
     },

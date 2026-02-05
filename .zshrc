@@ -101,6 +101,7 @@ if [[ $IS_MINGW ]]; then
 	path+="/c/ProgramData/ComposerSetup/bin"
 	path+="/c/Program Files/GitHub CLI/"
 	path+="/c/Program Files/Git/cmd"
+	path+="/c/Program Files (x86)/Microsoft Visual Studio/18/BuildTools/VC/Tools/MSVC/14.50.35717/bin/HostX64/x64"
 fi
 
 export GOPATH="$HOME/go"
