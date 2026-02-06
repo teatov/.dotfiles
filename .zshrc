@@ -65,17 +65,27 @@ zstyle ":vcs_info:*" formats "%b%u%c "
 zstyle ":vcs_info:*" actionformats "%b|%a%u%c "
 
 PROMPT=''
-PROMPT+='%F{6}%2~%f '
+PROMPT+='%F{4}%2~%f '
 PROMPT+='%F{8}${vcs_info_msg_0_}%f'
 PROMPT+='%(?.$.%F{9}$%f) '
 
 function vcs_callback() {
 	vcs_info
 	zle reset-prompt
+
+	local tw_name=$1 tw_code=$2 tw_output=$3
+	if ((tw_code == 2)) || ((tw_code == 3)) || ((tw_code == 130)); then
+		async_stop_worker vcs_updater_worker
+		vcs_updater_worker_init
+	fi
 }
 
-async_start_worker vcs_updater_worker
-async_register_callback vcs_updater_worker vcs_callback
+vcs_updater_worker_init() {
+	async_start_worker vcs_updater_worker
+	async_register_callback vcs_updater_worker vcs_callback
+}
+
+vcs_updater_worker_init
 
 function vcs_job_precmd() {
 	async_flush_jobs vcs_updater_worker
