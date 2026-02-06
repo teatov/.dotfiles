@@ -65,7 +65,7 @@ zstyle ":vcs_info:*" formats "%b%u%c "
 zstyle ":vcs_info:*" actionformats "%b|%a%u%c "
 
 PROMPT=''
-PROMPT+='%F{4}%2~%f '
+PROMPT+='%F{10}%2~%f '
 PROMPT+='%F{8}${vcs_info_msg_0_}%f'
 PROMPT+='%(?.$.%F{9}$%f) '
 
