@@ -12,7 +12,7 @@ IS_MINGW=$(uname | sed -n "s/.*\( *MINGW *\).*/\1/ip")
 
 # Utilities
 alias sa="source $HOME/.zshrc"
-alias dotfiles="git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME""
+alias dotfiles='git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 
 if [[ $IS_MINGW ]]; then
 	COOKIEPATH="%APPDATA%/Waterfox/Profiles"
