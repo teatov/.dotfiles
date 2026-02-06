@@ -174,11 +174,6 @@
     "diagnostics": false,
     "metrics": false,
   },
-  "terminal": {
-    "shell": {
-      "program": "zsh",
-    },
-  },
   "theme": "Vesper",
   "theme_overrides": {
     "Vesper": {
