@@ -106,7 +106,9 @@ fi
 
 export GOPATH="$HOME/go"
 
-[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+if [[ -s "$HOME/.cargo/env" ]]; then
+	source "$HOME/.cargo/env"
+fi
 
 export NVM_DIR="$HOME/.nvm"
 if [[ -s "$NVM_DIR/nvm.sh" ]]; then
@@ -121,4 +123,6 @@ if [[ -s "$NVM_DIR/nvm.sh" ]]; then
 		eval "${cmd}(){ unset -f ${NODE_GLOBALS}; load_nvm; ${cmd} \$@ }"
 	done
 fi
-[[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
+if [[ -s "$NVM_DIR/bash_completion" ]]; then
+	source "$NVM_DIR/bash_completion"
+fi
