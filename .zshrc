@@ -6,13 +6,11 @@ autoload -Uz add-zsh-hook
 bindkey "^[[1;3C" forward-word
 bindkey "^[[1;3D" backward-word
 
-IS_MINGW=$(uname | sed -n "s/.*\( *MINGW *\).*/\1/ip")
-
 # Utilities
 alias sa="source $HOME/.zshrc"
 alias dotfiles='git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 
-if [[ $IS_MINGW ]]; then
+if [[ $MSYSTEM ]]; then
 	COOKIEPATH="%APPDATA%/Waterfox/Profiles"
 else
 	COOKIEPATH="$HOME/.waterfox"
@@ -26,6 +24,16 @@ zedconfsort() {
 }
 
 source "$HOME/.pkgsync/pkgsync.zsh"
+
+if [[ $MSYSTEM ]]; then
+	msys2_shell() {
+		"C:/msys64/msys2_shell.cmd" -defterm -here -no-start -shell zsh $1
+	}
+	alias msys2="msys2_shell -msys2"
+	alias ucrt64="msys2_shell -ucrt64"
+	alias clang64="msys2_shell -clang64"
+	alias mingw64="msys2_shell -mingw64"
+fi
 
 # Completion
 autoload -Uz compinit
@@ -100,7 +108,7 @@ typeset -TUx PATH path
 path+="$HOME/.local/bin"
 path+="$HOME/bin"
 
-if [[ $IS_MINGW ]]; then
+if [[ $MSYSTEM ]]; then
 	path+="$HOME/AppData/Local/Microsoft/WindowsApps"
 	path+="$HOME/AppData/Roaming/Composer/vendor/bin"
 	path+="$HOME/AppData/Local/Programs/Zed/bin"

@@ -11,7 +11,7 @@ pkgsave() {
 	npm list -g --depth 0 | sed "1d" | cut -d " " -f 2 | cut -d "@" -f 1 |
 		sed "/^${NPMEXCLUDE//,/\$\|^}\$/d" >"$PKGSYNCDIR/npm.txt"
 
-	if [[ $IS_MINGW ]]; then
+	if [[ $MSYSTEM ]]; then
 		pacman -Qe | cut -d " " -f 1 |
 			sed "/^${PACMANEXCLUDE//,/\$\|^}\$/d" >"$PKGSYNCDIR/pacman.txt"
 

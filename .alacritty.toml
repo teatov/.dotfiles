@@ -1,34 +1,35 @@
 # --working-directory "C:/Users/user" --config-file "C:/Users/user/.alacritty.toml" --command "C:/msys64/msys2_shell.cmd -defterm -here -no-start -clang64 -shell zsh"
 [window]
 dimensions = { columns = 110, lines = 30 }
+position = { x = 300, y = 100 }
 
 [font]
 normal = { family = "Maple Mono", style = "Regular" }
 size = 16.0
 
 [colors.primary]
-background = '#101010'
-foreground = '#d9d9d9'
+background = "#101010"
+foreground = "#d9d9d9"
 
 [colors.normal]
-black   = '#101010'
-red     = '#f5a191'
-green   = '#90b99f'
-yellow  = '#e6b99d'
-blue    = '#aca1cf'
-magenta = '#e29eca'
-cyan    = '#ea83a5'
-white   = '#a0a0a0'
+black = "#101010"
+red = "#f5a191"
+green = "#90b99f"
+yellow = "#e6b99d"
+blue = "#aca1cf"
+magenta = "#e29eca"
+cyan = "#ea83a5"
+white = "#a0a0a0"
 
 [colors.bright]
-black   = '#7e7e7e'
-red     = '#ff8080'
-green   = '#8debd2'
-yellow  = '#ffc799'
-blue    = '#b9aeda'
-magenta = '#ecaad6'
-cyan    = '#f591b2'
-white   = '#d9d9d9'
+black = "#7e7e7e"
+red = "#ff8080"
+green = "#8debd2"
+yellow = "#ffc799"
+blue = "#b9aeda"
+magenta = "#ecaad6"
+cyan = "#f591b2"
+white = "#d9d9d9"
 
 [mouse]
 hide_when_typing = true
